@@ -17,7 +17,7 @@
 
         .calculator {
             background: #ffffff;
-            border-radius: 3px;
+            border-radius: 8px; /* Increased radius for a softer look */
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
             padding: 30px;
             width: 100%;
@@ -53,7 +53,7 @@
             margin-bottom: 16px;
             display: flex;
             align-items: center;
-            flex-direction: row-reverse; /* Make labels align on the right */
+            flex-direction: row-reverse;
         }
 
         .input-group label {
@@ -64,9 +64,9 @@
             color: #fff;
             border-radius: 8px;
             font-size: 16px;
-            font-weight: 700; /* Make font bold */
+            font-weight: 700;
             text-align: center;
-            margin-left: 10px; /* Adjust spacing */
+            margin-left: 10px;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
@@ -123,7 +123,7 @@
 
         h2 {
             margin-top: 20px;
-            font-size: 24px; /* Increase font size */
+            font-size: 24px;
             color: #333;
             text-align: center;
             font-weight: 700;
@@ -141,29 +141,29 @@
         </div>
 
         <div class="input-group">
-            <label for="monthlyRent">الإيجار الشهري:</label>
+            <label for="monthlyRent">الإيجار الشهري</label>
             <input type="number" id="monthlyRent" placeholder="أدخل الإيجار الشهري">
         </div>
 
         <div class="input-group">
-            <label for="daysInMonth">عدد أيام الشهر:</label>
+            <label for="daysInMonth">عدد أيام الشهر</label>
             <input type="number" id="daysInMonth" placeholder="أدخل عدد أيام الشهر">
         </div>
 
         <div class="input-group">
-            <label for="extensionDays">عدد أيام التمديد:</label>
+            <label for="extensionDays">عدد أيام التمديد</label>
             <input type="number" id="extensionDays" placeholder="أدخل عدد أيام التمديد">
         </div>
 
         <div class="input-group">
-            <label for="extensionNightRate">قيمة ليلة التمديد:</label>
+            <label for="extensionNightRate">قيمة ليلة التمديد</label>
             <input type="number" id="extensionNightRate" placeholder="أدخل قيمة ليلة التمديد">
         </div>
 
         <button class="calculate-btn" onclick="calculateRent()">احسب</button>
         <button class="copy-btn hidden" id="copyBtn" onclick="copyResult()">نسخ القيمة</button>
 
-        <h2 id="result">نتيجة الإيجار: </h2>
+        <h2 id="result"> قيمة الليلة </h2>
     </div>
 
     <script>
@@ -192,11 +192,14 @@
 
         function copyResult() {
             const resultText = document.getElementById('result').innerText;
-            navigator.clipboard.writeText(resultText).then(() => {
-                alert('تم نسخ القيمة إلى الحافظة!');
-            }).catch(err => {
-                alert('فشل في نسخ القيمة: ' + err);
-            });
+            const numericValue = resultText.match(/(\d+\.\d+)/); // Extract numeric part with 4 decimal places
+            if (numericValue) {
+                navigator.clipboard.writeText(numericValue[0]).then(() => {
+                    alert('تم نسخ القيمة إلى الحافظة!');
+                }).catch(err => {
+                    alert('فشل في نسخ القيمة: ' + err);
+                });
+            }
         }
     </script>
 </body>
